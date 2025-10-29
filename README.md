@@ -21,11 +21,9 @@ EaglesApi/
 ├── requirements.txt
 └── README.md
 
-⚙️ 1. Clone Repository
-git clone https://github.com/<your-username>/EaglesApi.git
-cd EaglesApi
 
-📦 2. Create Virtual Environment
+
+📦 1. Create Virtual Environment
 python -m venv venv
 
 
@@ -40,7 +38,7 @@ macOS / Linux:
 
 source venv/bin/activate
 
-🧩 3. Install Dependencies
+🧩 2. Install Dependencies
 pip install -r requirements.txt
 
 
@@ -48,7 +46,7 @@ If requirements.txt doesn’t exist, generate it using:
 
 pip freeze > requirements.txt
 
-🛢️ 4. Setup Database (MySQL)
+🛢️ 3. Setup Database (MySQL)
 Create Database:
 CREATE DATABASE eaglesdb;
 
@@ -65,7 +63,7 @@ SECRET_KEY=your_secret_key
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=60
 
-🧠 5. Configure Database Connection (database.py)
+🧠 4. Configure Database Connection (database.py)
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import DeclarativeMeta, declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -86,7 +84,7 @@ engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 Base: DeclarativeMeta = declarative_base()
 
-👥 6. Employee Model (models/employee.py)
+👥 5. Employee Model (models/employee.py)
 from sqlalchemy import Column, Integer, String
 from fastapi_project.database import Base
 
