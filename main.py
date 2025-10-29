@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from fastapi_project.router import user, customer,login
+from fastapi_project.router import user, login,employees,attendance
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -19,14 +19,21 @@ app.include_router(
     tags=["user"]
 )
 
-app.include_router(
-    customer.router,
-    prefix="/Customer",
-    tags=["customer"]
-)
+
 
 app.include_router(
     login.router,
     prefix="/Login",
     tags=['Login']
+)
+app.include_router(
+    employees.router,
+    prefix="/Employees",
+    tags=['Employees']
+)
+
+app.include_router(
+    attendance.router,
+    prefix="/Attendance",
+    tags=['Attendance']
 )
