@@ -2,7 +2,8 @@
 Pydantic schemas for Dashboard.
 """
 from pydantic import BaseModel, ConfigDict
-from typing import List, Optional
+from typing import List, Optional, Dict
+from datetime import datetime
 
 
 class DashboardStatsResponse(BaseModel):
@@ -12,6 +13,12 @@ class DashboardStatsResponse(BaseModel):
     total_attendance_records: int
     total_present_today: int
     total_absent_today: int
+    average_attendance_rate: float
+    employees_by_department: Dict[str, int]
+    this_week_summary: Dict[str, int]
+    recent_employees: List[Dict]
+    recent_attendance: List[Dict]
+    pending_leaves: int = 0
     
     model_config = ConfigDict(from_attributes=True)
 

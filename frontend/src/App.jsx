@@ -3,6 +3,8 @@ import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
 import EmployeesPage from './pages/EmployeesPage';
 import AttendancePage from './pages/AttendancePage';
+import LeavesPage from './pages/LeavesPage';
+import ToastContainer from './components/ToastContainer';
 import './App.css';
 
 function App() {
@@ -15,8 +17,10 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/employees" element={<EmployeesPage />} />
             <Route path="/attendance" element={<AttendancePage />} />
+            <Route path="/leaves" element={<LeavesPage />} />
           </Routes>
         </main>
+        <ToastContainer />
       </div>
     </Router>
   );

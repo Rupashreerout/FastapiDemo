@@ -14,10 +14,11 @@ class Settings(BaseSettings):
     """
 
     # 🔹 Database configuration
-    # Hardcoded for Render production deployment
-    # Internal Database URL (for Render services) - no SSL needed, faster connection
-    # This will be used if DATABASE_URL is not set as environment variable
+    # For production deployment on Render, use the hosted database
     DATABASE_URL: str = "postgresql://hrms_user:AbhJkLzuoBmsUbyYd1kamVMhV00qQH6T@dpg-d6irjmsr85hc73c4tg8g-a/hrms_db_oa38"
+    
+    # For local development, use local PostgreSQL database
+    # DATABASE_URL: str = "postgresql://postgres:postgres@localhost:5432/hrms_db"
 
     # 🔹 Application settings
     APP_NAME: str = "HRMS Lite API"
@@ -58,6 +59,9 @@ class Settings(BaseSettings):
         if is_render or is_localhost:
             # Force use Render Internal Database URL
             object.__setattr__(self, "DATABASE_URL", render_db_url)
+        
+        # For local development, comment out the above logic and use local database:
+        # DATABASE_URL: str = "postgresql://postgres:postgres@localhost:5432/hrms_db"
 
     def get_cors_origins_list(self) -> List[str]:
         """

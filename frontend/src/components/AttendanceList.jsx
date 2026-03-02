@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { attendanceAPI, employeeAPI } from '../services/api';
 import Loader from './Loader';
 import ErrorAlert from './ErrorAlert';
@@ -8,6 +8,8 @@ const AttendanceList = () => {
   const [attendanceRecords, setAttendanceRecords] = useState([]);
   const [employees, setEmployees] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterDate, setFilterDate] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -46,15 +48,40 @@ const AttendanceList = () => {
       : `Employee ID: ${employeeId}`;
   };
 
-  // Group attendance by employee
-  const groupedAttendance = attendanceRecords.reduce((acc, record) => {
-    const empId = record.employee_id;
-    if (!acc[empId]) {
-      acc[empId] = [];
+  // Filter attendance records
+  const filteredRecords = useMemo(() => {
+    let filtered = attendanceRecords;
+
+    // Filter by date
+    if (filterDate) {
+      filtered = filtered.filter(record => record.date === filterDate);
     }
-    acc[empId].push(record);
-    return acc;
-  }, {});
+
+    // Filter by search query (employee name)
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(record => {
+        const employee = employees.find(emp => emp.id === record.employee_id);
+        if (!employee) return false;
+        return employee.full_name?.toLowerCase().includes(query) ||
+               employee.employee_id?.toLowerCase().includes(query);
+      });
+    }
+
+    return filtered;
+  }, [attendanceRecords, filterDate, searchQuery, employees]);
+
+  // Group attendance by employee
+  const groupedAttendance = useMemo(() => {
+    return filteredRecords.reduce((acc, record) => {
+      const empId = record.employee_id;
+      if (!acc[empId]) {
+        acc[empId] = [];
+      }
+      acc[empId].push(record);
+      return acc;
+    }, {});
+  }, [filteredRecords]);
 
   if (loading) {
     return <Loader />;
@@ -78,20 +105,60 @@ const AttendanceList = () => {
             ))}
           </select>
           <span className="attendance-count">
-            {attendanceRecords.length} record(s)
+            {filteredRecords.length} of {attendanceRecords.length} record(s)
           </span>
         </div>
       </div>
 
       <ErrorAlert message={error} onClose={() => setError('')} />
 
+      {/* Filters */}
+      <div className="filters-container">
+        <input
+          type="text"
+          placeholder="Search by employee name..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="search-input"
+        />
+        <input
+          type="date"
+          value={filterDate}
+          onChange={(e) => setFilterDate(e.target.value)}
+          className="date-filter"
+        />
+        {filterDate && (
+          <button
+            onClick={() => setFilterDate('')}
+            className="clear-filter-btn"
+          >
+            Clear Date
+          </button>
+        )}
+      </div>
+
       {attendanceRecords.length === 0 ? (
         <div className="empty-state">
+          <div className="empty-icon">📋</div>
           <p>
             {selectedEmployee === 'all'
               ? 'No attendance records found.'
               : 'No attendance records found for this employee.'}
           </p>
+        </div>
+      ) : filteredRecords.length === 0 ? (
+        <div className="empty-state">
+          <div className="empty-icon">🔍</div>
+          <p>No attendance records found matching your filters.</p>
+          <button
+            className="empty-action-btn"
+            onClick={() => {
+              setSearchQuery('');
+              setFilterDate('');
+            }}
+          >
+            Clear Filters
+          </button>
         </div>
       ) : selectedEmployee === 'all' ? (
         // Grouped view for all employees
@@ -152,7 +219,7 @@ const AttendanceList = () => {
               </tr>
             </thead>
             <tbody>
-              {attendanceRecords
+              {filteredRecords
                 .sort((a, b) => new Date(b.date) - new Date(a.date))
                 .map((record) => (
                   <tr key={record.id}>

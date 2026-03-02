@@ -8,12 +8,13 @@ from sqlalchemy.exc import IntegrityError
 
 from app.config import settings
 from app.database import Base, engine
-from app.routes import employee, attendance, dashboard
+from app.routes import employee, attendance, dashboard, leave
 from app.core.exceptions import (
     EmployeeNotFoundError,
     EmployeeAlreadyExistsError,
     AttendanceNotFoundError,
-    AttendanceAlreadyExistsError
+    AttendanceAlreadyExistsError,
+    ValidationError
 )
 
 # Create database tables (only in development)
@@ -100,6 +101,18 @@ async def integrity_error_handler(request: Request, exc: IntegrityError):
     )
 
 
+@app.exception_handler(ValidationError)
+async def validation_error_handler(request: Request, exc: ValidationError):
+    """Handle validation errors."""
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={
+            "success": False,
+            "message": exc.detail
+        }
+    )
+
+
 @app.exception_handler(ValueError)
 async def value_error_handler(request: Request, exc: ValueError):
     """Handle value errors."""
@@ -129,6 +142,12 @@ app.include_router(
     dashboard.router,
     prefix="/api/dashboard",
     tags=["Dashboard"]
+)
+
+app.include_router(
+    leave.router,
+    prefix="/api/leaves",
+    tags=["Leaves"]
 )
 
 

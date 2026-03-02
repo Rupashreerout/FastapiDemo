@@ -4,8 +4,12 @@
  */
 import axios from 'axios';
 
-// Hardcoded API base URL for production deployment
+// API base URL configuration
+// For production deployment, use the deployed URL
 const API_BASE_URL = 'https://fastapidemo-zshy.onrender.com/api';
+
+// For local development, use localhost
+// const API_BASE_URL = 'http://localhost:8000/api';
 
 // Create axios instance
 const api = axios.create({
@@ -107,29 +111,46 @@ export const dashboardAPI = {
   // Get dashboard stats
   getStats: async () => {
     try {
-      const [employeesRes, attendanceRes] = await Promise.all([
-        api.get('/employees'),
-        api.get('/attendance'),
-      ]);
-      
-      const employees = employeesRes.data?.data || [];
-      const attendanceRecords = attendanceRes.data?.data || [];
-      
-      // Calculate today's present count
-      const today = new Date().toISOString().split('T')[0];
-      const todayPresent = attendanceRecords.filter(
-        (record) => record.date === today && record.status === 'Present'
-      ).length;
-      
-      return {
-        totalEmployees: employees.length,
-        totalAttendanceRecords: attendanceRecords.length,
-        totalPresentToday: todayPresent,
-      };
+      const response = await api.get('/dashboard/stats');
+      return response.data;
     } catch (error) {
       throw error;
     }
   },
+  
+  // Get employee summaries (top 10 by attendance rate)
+  getEmployeeSummaries: async () => {
+    try {
+      const response = await api.get('/dashboard/employee-summaries');
+      return response.data || [];
+    } catch (error) {
+      throw error;
+    }
+  },
+};
+
+// Leave API methods
+export const leaveAPI = {
+  // Get all leaves
+  getAll: (params) => api.get('/leaves', { params }),
+  
+  // Get leave by ID
+  getById: (id) => api.get(`/leaves/${id}`),
+  
+  // Create leave
+  create: (leaveData) => api.post('/leaves', leaveData),
+  
+  // Update leave status
+  updateStatus: (id, status, reviewedBy) => api.put(`/leaves/${id}/status`, { status, reviewed_by: reviewedBy }),
+  
+  // Get employee's leaves
+  getByEmployeeId: (employeeId) => api.get(`/leaves/employee/${employeeId}`),
+  
+  // Get employee leave balance
+  getBalance: (employeeId) => api.get(`/leaves/employee/${employeeId}/balance`),
+  
+  // Get leave statistics
+  getStatistics: () => api.get('/leaves/statistics'),
 };
 
 export default api;

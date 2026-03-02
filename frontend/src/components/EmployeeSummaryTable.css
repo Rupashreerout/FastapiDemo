@@ -1,0 +1,123 @@
+.employee-summary-table {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.employee-summary-table h3 {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1.25rem;
+}
+
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.summary-table thead {
+  background: #f8f9fa;
+}
+
+.summary-table th {
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  color: #666;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.summary-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e9ecef;
+  color: #333;
+}
+
+.summary-table tbody tr:hover {
+  background: #f8f9fa;
+}
+
+.employee-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.present-count {
+  color: #10b981;
+  font-weight: 500;
+}
+
+.absent-count {
+  color: #ef4444;
+  font-weight: 500;
+}
+
+.attendance-rate {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.attendance-rate.rate-high {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.attendance-rate.rate-medium {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.attendance-rate.rate-low {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.loading-skeleton {
+  padding: 1rem 0;
+}
+
+.skeleton-row {
+  height: 40px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s ease-in-out infinite;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.empty-state {
+  padding: 2rem;
+  text-align: center;
+  color: #666;
+}
+
+.empty-state p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .summary-table {
+    font-size: 0.875rem;
+  }
+  
+  .summary-table th,
+  .summary-table td {
+    padding: 0.5rem;
+  }
+}

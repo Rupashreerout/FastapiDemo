@@ -26,5 +26,13 @@ class Employee(Base):
         cascade="all, delete-orphan"
     )
     
+    # Relationship with leaves
+    leaves = relationship(
+        "Leave",
+        foreign_keys="Leave.employee_id",
+        back_populates="employee",
+        cascade="all, delete-orphan"
+    )
+    
     def __repr__(self):
         return f"<Employee(id={self.id}, employee_id='{self.employee_id}', full_name='{self.full_name}')>"

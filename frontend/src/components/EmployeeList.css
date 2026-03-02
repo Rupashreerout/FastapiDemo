@@ -23,10 +23,51 @@
   font-size: 0.9rem;
 }
 
+.search-container {
+  margin-bottom: 1.5rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
 .empty-state {
   text-align: center;
   padding: 3rem;
   color: #999;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.empty-action-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.empty-action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 .table-container {
@@ -48,6 +89,16 @@
   font-weight: 600;
   color: #555;
   border-bottom: 2px solid #dee2e6;
+}
+
+.employee-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.employee-table th.sortable:hover {
+  background-color: #e9ecef;
 }
 
 .employee-table td {
@@ -132,6 +183,34 @@
 
 .btn-cancel:hover {
   background-color: #7f8c8d;
+}
+
+.attendance-rate {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.attendance-rate.rate-high {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.attendance-rate.rate-medium {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.attendance-rate.rate-low {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.attendance-rate.no-data {
+  background: #f3f4f6;
+  color: #6b7280;
 }
 
 @media (max-width: 768px) {

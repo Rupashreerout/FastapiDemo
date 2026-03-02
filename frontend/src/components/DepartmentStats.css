@@ -1,0 +1,124 @@
+.department-stats {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.department-stats h3 {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1.25rem;
+}
+
+.department-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.department-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.department-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.department-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.department-count {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.department-bar {
+  height: 8px;
+  background: #e9ecef;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.department-bar-fill {
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  transition: width 0.3s ease;
+}
+
+.department-percentage {
+  font-size: 0.75rem;
+  color: #666;
+  align-self: flex-end;
+}
+
+.week-summary {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.week-summary h4 {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1rem;
+}
+
+.week-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.week-stat {
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.week-stat.present {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.week-stat.absent {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.week-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.week-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.empty-state {
+  padding: 2rem;
+  text-align: center;
+  color: #666;
+}
+
+.empty-state p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .week-stats {
+    grid-template-columns: 1fr;
+  }
+}

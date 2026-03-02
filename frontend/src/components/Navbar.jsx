@@ -30,6 +30,11 @@ const Navbar = () => {
               Attendance
             </Link>
           </li>
+          <li>
+            <Link to="/leaves" className={isActive('/leaves')}>
+              Leaves
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>
