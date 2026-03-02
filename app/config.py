@@ -14,7 +14,8 @@ class Settings(BaseSettings):
 
     # 🔹 Database configuration
     # Hardcoded for Render production deployment
-    DATABASE_URL: str = "postgresql://hrms_user:AbhJkLzuoBmsUbyYd1kamVMhV00qQH6T@dpg-d6irjmsr85hc73c4tg8g-a/hrms_db_oa38"
+    # Using External Database URL with SSL parameters
+    DATABASE_URL: str = "postgresql://hrms_user:AbhJkLzuoBmsUbyYd1kamVMhV00qQH6T@dpg-d6irjmsr85hc73c4tg8g-a.oregon-postgres.render.com/hrms_db_oa38?sslmode=prefer"
 
     # 🔹 Application settings
     APP_NAME: str = "HRMS Lite API"

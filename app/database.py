@@ -19,6 +19,7 @@ if settings.DATABASE_URL.startswith("sqlite"):
     )
 else:
     # PostgreSQL configuration
+    # SSL parameters are included in the DATABASE_URL connection string
     engine = create_engine(
         settings.DATABASE_URL,
         pool_pre_ping=True,
