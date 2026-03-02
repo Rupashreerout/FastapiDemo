@@ -1,0 +1,43 @@
+.error-alert {
+  background-color: #fee;
+  border: 1px solid #fcc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  color: #c33;
+}
+
+.error-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.error-icon {
+  font-size: 1.2rem;
+}
+
+.error-message {
+  flex: 1;
+  font-weight: 500;
+}
+
+.error-close {
+  background: none;
+  border: none;
+  color: #c33;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.error-close:hover {
+  background-color: rgba(204, 51, 51, 0.1);
+}

@@ -1,0 +1,146 @@
+.attendance-list-container {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.attendance-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.attendance-list-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.employee-filter {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background-color: white;
+}
+
+.attendance-count {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #999;
+}
+
+.grouped-attendance {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.employee-attendance-group {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  background-color: #fafafa;
+}
+
+.employee-name {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1.2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #667eea;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.attendance-table thead {
+  background-color: #f8f9fa;
+}
+
+.attendance-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #555;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.attendance-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #dee2e6;
+  color: #333;
+}
+
+.attendance-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.status-present {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-absent {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+@media (max-width: 768px) {
+  .attendance-list-container {
+    padding: 1rem;
+  }
+
+  .attendance-list-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-controls {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .employee-filter {
+    width: 100%;
+  }
+
+  .attendance-table {
+    font-size: 0.9rem;
+  }
+
+  .attendance-table th,
+  .attendance-table td {
+    padding: 0.75rem 0.5rem;
+  }
+}
