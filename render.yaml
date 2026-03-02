@@ -1,0 +1,25 @@
+# Render Blueprint Configuration
+# This file can be used to deploy multiple services at once
+
+services:
+  - type: web
+    name: hrms-backend
+    env: python
+    buildCommand: pip install -r requirements.txt && alembic upgrade head
+    startCommand: gunicorn app.main:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
+    envVars:
+      - key: DATABASE_URL
+        sync: false  # Set this manually from PostgreSQL service
+      - key: CORS_ORIGINS
+        value: https://your-frontend.vercel.app  # Update after frontend deployment
+      - key: APP_NAME
+        value: HRMS Lite API
+      - key: APP_VERSION
+        value: 1.0.0
+      - key: DEBUG
+        value: False
+
+databases:
+  - name: hrms-db
+    databaseName: hrms_db
+    user: hrms_user

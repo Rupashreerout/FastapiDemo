@@ -201,60 +201,50 @@ alembic downgrade -1
 alembic history
 ```
 
-## 🚀 Deployment on Render
+## 🚀 Production Deployment
 
-### 1. Prepare for deployment
+For complete deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md)
 
-Ensure your `requirements.txt` is up to date and your `.env` file is configured (but don't commit it).
+### Quick Deployment Summary
 
-### 2. Create a Render account
+#### Backend (Render)
 
-1. Go to [Render](https://render.com)
-2. Sign up or log in
+1. **Create PostgreSQL Database on Render**
+   - Go to Render Dashboard → New → PostgreSQL
+   - Copy Internal Database URL
 
-### 3. Create a PostgreSQL database
-
-1. In Render dashboard, click "New +"
-2. Select "PostgreSQL"
-3. Configure:
-   - **Name**: hrms-db (or your preferred name)
-   - **Database**: hrms_db
-   - **User**: (auto-generated)
-   - **Password**: (auto-generated)
-   - **Region**: Choose closest to you
-4. Click "Create Database"
-5. Copy the **Internal Database URL** (you'll use this in the web service)
-
-### 4. Create a Web Service
-
-1. In Render dashboard, click "New +"
-2. Select "Web Service"
-3. Connect your repository (GitHub/GitLab)
-4. Configure:
-   - **Name**: hrms-api (or your preferred name)
-   - **Environment**: Python 3
+2. **Deploy Backend**
+   - New → Web Service
+   - Connect GitHub repository
    - **Build Command**: `pip install -r requirements.txt && alembic upgrade head`
-   - **Start Command**: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+   - **Start Command**: `gunicorn app.main:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT`
    - **Environment Variables**:
-     - `DATABASE_URL`: Use the Internal Database URL from step 3
+     - `DATABASE_URL`: PostgreSQL Internal Database URL
+     - `CORS_ORIGINS`: Your frontend URL (update after frontend deployment)
      - `APP_NAME`: HRMS Lite API
      - `APP_VERSION`: 1.0.0
      - `DEBUG`: False
-     - `CORS_ORIGINS`: * (or specific origins)
 
-### 5. Deploy
+3. **Note Backend URL**: `https://your-backend.onrender.com`
 
-1. Click "Create Web Service"
-2. Render will build and deploy your application
-3. Once deployed, your API will be available at the provided URL
+#### Frontend (Vercel)
 
-### 6. Run migrations (if not in build command)
+1. **Deploy to Vercel**
+   - Import GitHub repository
+   - **Root Directory**: `frontend`
+   - **Framework**: Vite
+   - **Build Command**: `npm run build`
+   - **Environment Variable**:
+     - `VITE_API_BASE_URL`: `https://your-backend.onrender.com/api`
 
-If migrations aren't run automatically, SSH into your Render instance and run:
+2. **Update Backend CORS**
+   - Go back to Render
+   - Update `CORS_ORIGINS` with your Vercel URL
+   - Redeploy backend
 
-```bash
-alembic upgrade head
-```
+### Full Documentation
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed step-by-step instructions.
 
 ## 📁 Project Structure
 

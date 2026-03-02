@@ -16,8 +16,9 @@ from app.core.exceptions import (
     AttendanceAlreadyExistsError
 )
 
-# Create database tables
-Base.metadata.create_all(bind=engine)
+# Create database tables (only in development)
+# In production, use Alembic migrations instead
+# Base.metadata.create_all(bind=engine)
 
 # Initialize FastAPI app
 app = FastAPI(
