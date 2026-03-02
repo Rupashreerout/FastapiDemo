@@ -13,8 +13,8 @@ class Settings(BaseSettings):
     """
 
     # 🔹 Database configuration
-    # Required: Must be provided via .env (local) or Render Environment Variables (production)
-    DATABASE_URL: str
+    # Hardcoded for Render production deployment
+    DATABASE_URL: str = "postgresql://hrms_user:AbhJkLzuoBmsUbyYd1kamVMhV00qQH6T@dpg-d6irjmsr85hc73c4tg8g-a/hrms_db_oa38"
 
     # 🔹 Application settings
     APP_NAME: str = "HRMS Lite API"

@@ -4,8 +4,8 @@
  */
 import axios from 'axios';
 
-// Get API base URL from environment variable
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
+// Hardcoded API base URL for production deployment
+const API_BASE_URL = 'https://fastapidemo-zshy.onrender.com/api';
 
 // Create axios instance
 const api = axios.create({
